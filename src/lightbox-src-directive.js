@@ -7,32 +7,6 @@
  */
 angular.module('bootstrapLightbox').directive('lightboxSrc', ['$window',
     'ImageLoader', 'Lightbox', function ($window, ImageLoader, Lightbox) {
-  // Calculate the dimensions to display the image. The max dimensions override
-  // the min dimensions if they conflict.
-  var calculateImageDisplayDimensions = function (dimensions) {
-    var w = dimensions.width;
-    var h = dimensions.height;
-    var minW = dimensions.minWidth;
-    var minH = dimensions.minHeight;
-    var maxW = dimensions.maxWidth;
-    var maxH = dimensions.maxHeight;
-
-    var ratioW = maxW / w;
-    var ratioH = maxH / h;
-
-    var zoom = Math.min(ratioW, ratioH);
-
-    var zoomedW = Math.floor(w * zoom);
-    var zoomedH = Math.floor(h * zoom);
-
-    var displayW = Math.max(minW, zoomedW);  
-    var displayH = Math.max(minH, zoomedH);  
-
-    return {
-      'width': displayW,
-      'height': displayH
-    };
-  };
 
   // the dimensions of the image
   var imageWidth = 0;
@@ -55,16 +29,14 @@ angular.module('bootstrapLightbox').directive('lightboxSrc', ['$window',
         });
 
         // calculate the dimensions to display the image
-        var imageDisplayDimensions = calculateImageDisplayDimensions(
-          angular.extend({
+        var imageDisplayDimensions = angular.extend({
             'width': imageWidth,
             'height': imageHeight,
             'minWidth': 1,
             'minHeight': 1,
             'maxWidth': 3000,
             'maxHeight': 3000,
-          }, imageDimensionLimits)
-        );
+          }, imageDimensionLimits);
 
         // calculate the dimensions of the modal container
         var modalDimensions = Lightbox.calculateModalDimensions({
@@ -79,7 +51,7 @@ angular.module('bootstrapLightbox').directive('lightboxSrc', ['$window',
           'width': imageDisplayDimensions.width + 'px',
           'height': imageDisplayDimensions.height + 'px'
         });
-
+        $window.console.log(modalDimensions, imageDisplayDimensions, imageWidth, imageHeight);
         // setting the height on .modal-dialog does not expand the div with the
         // background, which is .modal-content
         angular.element(
@@ -103,9 +75,9 @@ angular.module('bootstrapLightbox').directive('lightboxSrc', ['$window',
         return attrs.lightboxSrc;
       }, function (src) {
 
-        if (src && angular.isDefined(attrs.lightboxVideo)){
-          imageWidth = 16;
-          imageHeight = 9;
+        if (src && angular.isDefined(attrs.lightboxFlash)){
+          imageWidth = attrs.swfWidth;
+          imageHeight = attrs.swfHeight;
           // resize the video element and the containing modal
           resize();
           return;
