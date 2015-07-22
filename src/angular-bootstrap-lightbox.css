@@ -1,12 +1,9 @@
 .lightbox-nav {
+  height: 12px;
   position: relative;
   margin-bottom: 12px; /* the font-size of .btn-xs */
   text-align: center;
   font-size: 0; /* prevent the otherwise inherited font-size and line-height from adding extra space to the bottom of this div */
-}
-
-.lightbox-nav .btn-group {
-  vertical-align: top;
 }
 
 .lightbox-nav .close {

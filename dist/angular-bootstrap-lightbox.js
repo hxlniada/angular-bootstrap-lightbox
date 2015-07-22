@@ -351,7 +351,6 @@ angular.module('bootstrapLightbox').directive('lightboxSrc', ['$window',
           'width': imageDisplayDimensions.width + 'px',
           'height': imageDisplayDimensions.height + 'px'
         });
-        $window.console.log(modalDimensions, imageDisplayDimensions, imageWidth, imageHeight);
         // setting the height on .modal-dialog does not expand the div with the
         // background, which is .modal-content
         angular.element(
